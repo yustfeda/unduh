@@ -158,4 +158,73 @@
     </div>
   </div>
 </body>
+<script>
+  const tampilSelama = 3000; // tampil 3 detik
+  const jedaAntarTampil = 5000; // jeda antar popup
+
+  function createMiniPopup() {
+    const existing = document.getElementById("mini-popup");
+    if (existing) existing.remove();
+
+    const popup = document.createElement("div");
+    popup.id = "mini-popup";
+    popup.innerHTML = `
+      <div style="text-align:center">
+        <div style="font-size:28px; line-height:1">🚀</div>
+        <div style="font-size:13px; font-weight:bold; margin-top:4px">Tutorial Unduh</div>
+      </div>
+    `;
+
+    popup.style.cssText = `
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #ff0066, #ffcc00);
+      color: #fff;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9999;
+      animation: popupIn 0.5s ease-out;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+    `;
+
+    // Tambah animasi ke <head>
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes popupIn {
+        0% { opacity: 0; transform: translateY(20px) scale(0.7); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes popupOut {
+        0% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(0.7); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    document.body.appendChild(popup);
+
+    popup.onclick = () => {
+      window.location.href = "https://drive.google.com/file/d/1LAqjIRk-J5_fgNdAnbawUzpK1nVuu2Sp/view?usp=drivesdk"; // ganti ke URL tutorial/unduhanmu
+    };
+
+    setTimeout(() => {
+      popup.style.animation = 'popupOut 0.4s ease-in';
+      setTimeout(() => popup.remove(), 400);
+    }, tampilSelama);
+  }
+
+  // Mulai popup setiap 5 detik
+  setTimeout(() => {
+    createMiniPopup();
+    setInterval(createMiniPopup, jedaAntarTampil);
+  }, 1000);
+</script>
 </html>
